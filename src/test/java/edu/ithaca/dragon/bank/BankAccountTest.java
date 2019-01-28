@@ -9,9 +9,18 @@ class BankAccountTest {
     //The hard-coded parameters weren't sitting very well with me, so I gave them variables - henceforce the 'Tvals'
         //I'm wondering if I shouldn't have done that, since the values are being edited all across the class. I added a reset() function brought out by that concern. TDD is a wild, *wild* west for me.
     double testBAmount = 200;
-    double testWAmount = 100;
-    double testAm = 50;
+    double testWAmount = 100.56;
+    double testDouble = 50.60;
     String testEmail = "a@.y.";
+
+    //there's an oversight here. it just occurred to me; every time i want to add a new value to use with these tests
+    // I have to add it here too, not just within the class's members.
+    void resetTvals(){
+        testBAmount = 200;
+        testWAmount = 100.56;
+        testDouble = 50.60;
+        testEmail = "a@.y.";
+    }
 
     @Test
     void getBalanceTest() {
@@ -27,9 +36,16 @@ class BankAccountTest {
     @Test
     void withdrawTest() {
         BankAccount bankAccount = new BankAccount(testEmail, testBAmount);
-        bankAccount.withdraw(testWAmount);
-        assertEquals((testBAmount-testWAmount), bankAccount.getBalance());
-        overdrawnTest();
+
+        if (BankAccount.isAmountValid(testWAmount)){
+            bankAccount.withdraw(testWAmount);
+            assertEquals((testBAmount - testWAmount), bankAccount.getBalance());
+            overdrawnTest();
+        } else {
+            //resetTvals();
+            fail("Amount not valid!");
+
+        }
     }
 
     /**
@@ -53,28 +69,22 @@ class BankAccountTest {
         resetTvals();
     }
 
+    //?
     @Test
     void isAmountValid(){
-        assertTrue(BankAccount.isAmountValid(testAm));
+        assertTrue(BankAccount.isAmountValid(testDouble));
         resetTvals();
     }
 
     @Test
     void constructorTest() {
-        BankAccount bankAccount = new BankAccount(testEmail, 200);
+        BankAccount bankAccount = new BankAccount(testEmail, testBAmount);
 
         assertEquals(testEmail, bankAccount.getEmail());
+        assertTrue(bankAccount.isAmountValid(testBAmount));
         assertEquals(testBAmount, bankAccount.getBalance());
+
         //check for exception thrown correctly
         assertThrows(IllegalArgumentException.class, ()-> new BankAccount("", 100));
-    }
-
-    //there's an oversight here. it just occurred to me; everytime i want to add a new value to use with these tests
-        // I have to add it here too, not just within the class's members.
-    void resetTvals(){
-        testBAmount = 200;
-        testWAmount = 100;
-        testAm = 50;
-        testEmail = "a@.y.";
     }
 }

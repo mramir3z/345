@@ -54,7 +54,7 @@ public class BankAccount {
      */
     public static boolean isAmountValid(double amount){
         double amountRounded = Math.round((amount*100.0)/100.0);
-        if (amount != amountRounded && amount < 0 ){
+        if (amount != amountRounded || amount < 0 ){
             return false;
         } else {
             return true;
