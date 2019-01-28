@@ -34,7 +34,11 @@ public class BankAccount {
 
     }
 
-
+    /**
+     * purpose: checks for invalid emails based on existence of '@' symbol
+     * @param email is a string
+     * @return boolean
+     */
     public static boolean isEmailValid(String email){
         if (email.indexOf('@') == -1){
             return false;

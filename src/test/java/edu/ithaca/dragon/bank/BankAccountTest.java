@@ -21,10 +21,11 @@ class BankAccountTest {
         assertEquals(100, bankAccount.getBalance());
     }
 
+    //a 'pure' method; no side effects.
     @Test
     void isEmailValidTest(){
-        assertTrue(BankAccount.isEmailValid( "a@b.com"));
-        assertFalse( BankAccount.isEmailValid(""));
+        assertTrue(BankAccount.isEmailValid( "fsfslg@fakewebsite.banana"));
+        assertFalse(BankAccount.isEmailValid(""));
     }
 
     @Test
