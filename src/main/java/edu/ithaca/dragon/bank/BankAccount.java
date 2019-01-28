@@ -35,12 +35,12 @@ public class BankAccount {
     }
 
     /**
-     * purpose: checks for invalid emails based on existence of '@' symbol
+     * purpose: checks for invalid emails based on existence of '@' symbol and if a '.' occurs after that '@'
      * @param email is a string
      * @return boolean
      */
     public static boolean isEmailValid(String email){
-        if (email.indexOf('@') == -1){
+        if (email.indexOf('@') == -1 || email.lastIndexOf('.') < email.indexOf('@')){ //this still wouldn't work well, since email 'a.@y.' would pass
             return false;
         }
         else {
