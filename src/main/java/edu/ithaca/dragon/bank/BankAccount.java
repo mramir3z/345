@@ -36,7 +36,7 @@ public class BankAccount {
     /**
      * purpose: checks for invalid emails based on existence of '@' symbol and if a '.' occurs after that '@'
      * @param email is a string
-     * @return boolean
+     * @return boolean false if '@' isn't present or '.' does not come after an '@'
      */
     public static boolean isEmailValid(String email){
         if (email.indexOf('@') == -1 || email.lastIndexOf('.') < email.indexOf('@')){ //this still wouldn't work well, since email 'a.@y.' would pass
@@ -45,5 +45,14 @@ public class BankAccount {
         else {
             return true;
         }
+    }
+
+    /**
+     * purpose: check if amount is limited to 2 decimal places and that it is a positive number
+     * @param amount
+     * @return true if purpose conditions met, otherwise false
+     */
+    public static boolean isAmountValid(double amount){
+            return false;
     }
 }

@@ -10,6 +10,7 @@ class BankAccountTest {
         //I'm wondering if I shouldn't have done that, since the values are being edited all across the class. I added a reset() function brought out by that concern. TDD is a wild, *wild* west for me.
     double testBAmount = 200;
     double testWAmount = 100;
+    double testAm = 50;
     String testEmail = "a@.y.";
 
     @Test
@@ -27,7 +28,7 @@ class BankAccountTest {
     void withdrawTest() {
         BankAccount bankAccount = new BankAccount(testEmail, testBAmount);
         bankAccount.withdraw(testWAmount);
-        assertEquals(testBAmount, bankAccount.getBalance());
+        assertEquals((testBAmount-testWAmount), bankAccount.getBalance());
         overdrawnTest();
     }
 
@@ -36,7 +37,7 @@ class BankAccountTest {
      */
     @Test
     void overdrawnTest(){
-        BankAccount bankAccount = new BankAccount(testEmail, testWAmount);
+        BankAccount bankAccount = new BankAccount(testEmail, testBAmount);
         bankAccount.withdraw(testWAmount);
         if (bankAccount.getBalance() < 0){
             fail("Overdrawn!");
@@ -47,8 +48,14 @@ class BankAccountTest {
     //a 'pure' method; no side effects.
     @Test
     void isEmailValidTest(){
-        assertTrue(BankAccount.isEmailValid( testEmail));
+        assertTrue(BankAccount.isEmailValid(testEmail));
         assertFalse(BankAccount.isEmailValid(""));
+        resetTvals();
+    }
+
+    @Test
+    void isAmountValid(){
+        assertTrue(BankAccount.isAmountValid(testAm));
         resetTvals();
     }
 
@@ -62,9 +69,12 @@ class BankAccountTest {
         assertThrows(IllegalArgumentException.class, ()-> new BankAccount("", 100));
     }
 
+    //there's an oversight here. it just occurred to me; everytime i want to add a new value to use with these tests
+        // I have to add it here too, not just within the class's members.
     void resetTvals(){
         testBAmount = 200;
         testWAmount = 100;
+        testAm = 50;
         testEmail = "a@.y.";
     }
 }
