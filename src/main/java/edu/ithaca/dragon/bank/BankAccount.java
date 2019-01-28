@@ -49,10 +49,15 @@ public class BankAccount {
 
     /**
      * purpose: check if amount is limited to 2 decimal places and that it is a positive number
-     * @param amount
+     * @param amount is a double
      * @return true if purpose conditions met, otherwise false
      */
     public static boolean isAmountValid(double amount){
+        double amountRounded = Math.round((amount*100.0)/100.0);
+        if (amount != amountRounded && amount < 0 ){
             return false;
+        } else {
+            return true;
+        }
     }
 }
