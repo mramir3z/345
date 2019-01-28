@@ -27,7 +27,7 @@ class BankAccountTest {
     void withdrawTest() {
         BankAccount bankAccount = new BankAccount(testEmail, testBAmount);
         bankAccount.withdraw(testWAmount);
-        assertEquals((testBAmount-testWAmount), bankAccount.getBalance());
+        assertEquals(testBAmount, bankAccount.getBalance());
         overdrawnTest();
     }
 
